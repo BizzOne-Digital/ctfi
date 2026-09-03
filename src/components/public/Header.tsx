@@ -31,21 +31,28 @@ export function Header({
       <div className="mx-auto flex max-w-7xl items-center justify-between px-4 py-3.5 sm:px-6 lg:px-8">
         <Link href="/" className="flex items-center gap-2.5" aria-label={`${settings.businessName} home`}>
           {logoUrl ? (
+            // The logo is a wide wordmark lockup, not a square icon — render it at
+            // its natural aspect ratio (object-contain, no cropping/rounding) and
+            // let the wordmark itself carry the business name, rather than forcing
+            // it into a cropped circle and repeating the name in plain text beside it.
             <Image
               src={logoUrl}
               alt={settings.businessName}
-              width={40}
-              height={40}
-              className="h-10 w-10 rounded-full object-cover"
+              width={260}
+              height={151}
+              priority
+              className="h-16 w-auto object-contain sm:h-20"
             />
           ) : (
-            <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
-              <Camera className="h-5 w-5" />
-            </span>
+            <>
+              <span className="flex h-10 w-10 items-center justify-center rounded-full bg-primary text-white">
+                <Camera className="h-5 w-5" />
+              </span>
+              <span className="font-heading text-lg font-semibold leading-tight text-foreground sm:text-xl">
+                {settings.businessName}
+              </span>
+            </>
           )}
-          <span className="font-heading text-lg font-semibold leading-tight text-foreground sm:text-xl">
-            {settings.businessName}
-          </span>
         </Link>
 
         <nav className="hidden items-center gap-7 lg:flex" aria-label="Primary">

@@ -1,4 +1,5 @@
 import Link from "next/link";
+import Image from "next/image";
 import { Camera, Mail, Phone } from "lucide-react";
 import { InstagramIcon, FacebookIcon, XIcon } from "@/components/icons/SocialIcons";
 import { Container } from "@/components/ui/Container";
@@ -7,9 +8,11 @@ import type { PlainNavItem, PlainSiteSettings } from "@/lib/site-data";
 export function Footer({
   navigation,
   settings,
+  logoUrl,
 }: {
   navigation: PlainNavItem[];
   settings: PlainSiteSettings;
+  logoUrl?: string;
 }) {
   const year = new Date().getFullYear();
   const socials = [
@@ -22,10 +25,20 @@ export function Footer({
     <footer className="mt-auto border-t border-border bg-secondary/40">
       <Container className="grid gap-10 py-14 sm:grid-cols-2 lg:grid-cols-4">
         <div className="lg:col-span-2">
-          <div className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground">
-            <Camera className="h-5 w-5 text-primary" />
-            {settings.businessName}
-          </div>
+          {logoUrl ? (
+            <Image
+              src={logoUrl}
+              alt={settings.businessName}
+              width={260}
+              height={151}
+              className="h-16 w-auto object-contain sm:h-20"
+            />
+          ) : (
+            <div className="flex items-center gap-2 font-heading text-lg font-semibold text-foreground">
+              <Camera className="h-5 w-5 text-primary" />
+              {settings.businessName}
+            </div>
+          )}
           <p className="mt-3 max-w-sm text-sm text-muted">{settings.footerText}</p>
           {socials.length > 0 && (
             <div className="mt-5 flex gap-3">

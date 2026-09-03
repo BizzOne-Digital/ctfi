@@ -13,7 +13,7 @@ export default async function SiteLayout({ children }: { children: React.ReactNo
     <div className="flex min-h-full w-full flex-1 flex-col">
       <Header navigation={navigation} settings={settings} logoUrl={logoUrl} />
       <main className="flex-1">{children}</main>
-      <Footer navigation={navigation} settings={settings} />
+      <Footer navigation={navigation} settings={settings} logoUrl={logoUrl} />
     </div>
   );
 }
