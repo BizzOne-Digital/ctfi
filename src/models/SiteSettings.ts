@@ -8,6 +8,7 @@ export interface ISiteSettings extends Document {
   instagramUrl: string;
   facebookUrl: string;
   xUrl: string;
+  tiktokUrl: string;
   logoMediaId?: string;
   faviconMediaId?: string;
   seoTitle: string;
@@ -27,6 +28,7 @@ const SiteSettingsSchema = new Schema<ISiteSettings>(
     instagramUrl: { type: String, default: "" },
     facebookUrl: { type: String, default: "" },
     xUrl: { type: String, default: "" },
+    tiktokUrl: { type: String, default: "" },
     logoMediaId: { type: String, default: "" },
     faviconMediaId: { type: String, default: "" },
     seoTitle: { type: String, default: "" },

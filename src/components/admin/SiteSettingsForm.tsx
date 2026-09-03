@@ -97,7 +97,7 @@ export function SiteSettingsForm() {
 
       <section>
         <h2 className="font-heading text-lg font-semibold text-foreground">Social Media</h2>
-        <div className="mt-4 grid gap-5 sm:grid-cols-3">
+        <div className="mt-4 grid gap-5 sm:grid-cols-2 lg:grid-cols-4">
           <FormRow>
             <Label htmlFor="instagramUrl">Instagram URL</Label>
             <Input id="instagramUrl" {...register("instagramUrl")} />
@@ -109,6 +109,10 @@ export function SiteSettingsForm() {
           <FormRow>
             <Label htmlFor="xUrl">X (Twitter) URL</Label>
             <Input id="xUrl" {...register("xUrl")} />
+          </FormRow>
+          <FormRow>
+            <Label htmlFor="tiktokUrl">TikTok URL</Label>
+            <Input id="tiktokUrl" {...register("tiktokUrl")} />
           </FormRow>
         </div>
       </section>

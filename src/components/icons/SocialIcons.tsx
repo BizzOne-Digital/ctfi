@@ -29,3 +29,11 @@ export function XIcon(props: SVGProps<SVGSVGElement>) {
     </svg>
   );
 }
+
+export function TiktokIcon(props: SVGProps<SVGSVGElement>) {
+  return (
+    <svg viewBox="0 0 24 24" fill="currentColor" {...props}>
+      <path d="M16.6 2h-3.2v13.4c0 1.4-1.1 2.5-2.5 2.5s-2.5-1.1-2.5-2.5 1.1-2.5 2.5-2.5c.3 0 .5 0 .8.1V9.7c-.3 0-.5-.1-.8-.1-3.1 0-5.7 2.5-5.7 5.7S8 21 11.1 21s5.7-2.5 5.7-5.7V8.4c1.2.9 2.7 1.4 4.3 1.4V6.6c-2.4 0-4.5-1.9-4.5-4.3V2z" />
+    </svg>
+  );
+}

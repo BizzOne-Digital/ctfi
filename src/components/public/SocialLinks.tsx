@@ -1,20 +1,23 @@
-import { InstagramIcon, FacebookIcon, XIcon } from "@/components/icons/SocialIcons";
+import { InstagramIcon, FacebookIcon, XIcon, TiktokIcon } from "@/components/icons/SocialIcons";
 
 export function SocialLinks({
   instagramUrl,
   facebookUrl,
   xUrl,
+  tiktokUrl,
   className,
 }: {
   instagramUrl?: string;
   facebookUrl?: string;
   xUrl?: string;
+  tiktokUrl?: string;
   className?: string;
 }) {
   const links = [
     { href: instagramUrl, label: "Follow on Instagram", Icon: InstagramIcon },
     { href: facebookUrl, label: "Follow on Facebook", Icon: FacebookIcon },
     { href: xUrl, label: "Follow on X", Icon: XIcon },
+    { href: tiktokUrl, label: "Follow on TikTok", Icon: TiktokIcon },
   ].filter((l) => l.href);
 
   if (links.length === 0) return null;

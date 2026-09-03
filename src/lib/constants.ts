@@ -43,6 +43,7 @@ export const DEFAULT_SITE_SETTINGS = {
   instagramUrl: "https://www.instagram.com/ctfillc",
   facebookUrl: "https://www.facebook.com/ctfillc",
   xUrl: "https://www.x.com/ctfillc",
+  tiktokUrl: "https://www.tiktok.com/@ctfillc",
   logoMediaId: "",
   faviconMediaId: "",
   seoTitle: "Country Tyme Foto Imaging | Professional Photography",

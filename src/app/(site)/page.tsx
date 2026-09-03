@@ -123,6 +123,7 @@ export default async function HomePage() {
             instagramUrl={settings.instagramUrl}
             facebookUrl={settings.facebookUrl}
             xUrl={settings.xUrl}
+            tiktokUrl={settings.tiktokUrl}
           />
         </Section>
       )}

@@ -1,7 +1,7 @@
 import Link from "next/link";
 import Image from "next/image";
 import { Camera, Mail, Phone } from "lucide-react";
-import { InstagramIcon, FacebookIcon, XIcon } from "@/components/icons/SocialIcons";
+import { InstagramIcon, FacebookIcon, XIcon, TiktokIcon } from "@/components/icons/SocialIcons";
 import { Container } from "@/components/ui/Container";
 import type { PlainNavItem, PlainSiteSettings } from "@/lib/site-data";
 
@@ -19,6 +19,7 @@ export function Footer({
     { href: settings.instagramUrl, label: "Instagram", Icon: InstagramIcon },
     { href: settings.facebookUrl, label: "Facebook", Icon: FacebookIcon },
     { href: settings.xUrl, label: "X (Twitter)", Icon: XIcon },
+    { href: settings.tiktokUrl, label: "TikTok", Icon: TiktokIcon },
   ].filter((s) => s.href);
 
   return (

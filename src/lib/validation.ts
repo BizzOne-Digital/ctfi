@@ -105,6 +105,7 @@ export const siteSettingsSchema = z.object({
   instagramUrl: z.string().trim().max(300).optional().or(z.literal("")),
   facebookUrl: z.string().trim().max(300).optional().or(z.literal("")),
   xUrl: z.string().trim().max(300).optional().or(z.literal("")),
+  tiktokUrl: z.string().trim().max(300).optional().or(z.literal("")),
   logoMediaId: z.string().trim().optional().or(z.literal("")),
   faviconMediaId: z.string().trim().optional().or(z.literal("")),
   seoTitle: z.string().trim().max(160).optional().or(z.literal("")),
