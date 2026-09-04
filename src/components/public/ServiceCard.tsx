@@ -28,7 +28,7 @@ export function ServiceCard({ service, index = 0 }: { service: ServiceCardData; 
             alt={service.title}
             fill
             sizes="(min-width: 1024px) 320px, 90vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
         ) : (
           <AperturePanelArt className="h-full w-full" />

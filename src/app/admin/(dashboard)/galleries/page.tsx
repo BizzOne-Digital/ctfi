@@ -3,7 +3,7 @@
 import * as React from "react";
 import Link from "next/link";
 import { toast } from "sonner";
-import { Plus, Trash2, Lock, FolderOpen } from "lucide-react";
+import { Plus, Trash2, Lock, Globe, FolderOpen } from "lucide-react";
 import { Button } from "@/components/ui/Button";
 import { Badge } from "@/components/ui/Card";
 import { EmptyState, LoadingState, ErrorState } from "@/components/ui/States";
@@ -51,8 +51,10 @@ export default function GalleriesListPage() {
     <div>
       <div className="flex items-center justify-between">
         <div>
-          <h1 className="font-heading text-2xl font-semibold text-foreground">Client Galleries</h1>
-          <p className="mt-1 text-sm text-muted">Create and manage password-protected galleries for your clients.</p>
+          <h1 className="font-heading text-2xl font-semibold text-foreground">Galleries</h1>
+          <p className="mt-1 text-sm text-muted">
+            Manage password-protected client galleries and public portfolio galleries.
+          </p>
         </div>
         <Button href="/admin/galleries/new">
           <Plus className="h-4 w-4" /> New Gallery
@@ -93,7 +95,13 @@ export default function GalleriesListPage() {
                     <Badge tone={g.active ? "success" : "neutral"}>{g.active ? "Active" : "Inactive"}</Badge>
                   </div>
                   <p className="mt-2 flex items-center gap-1.5 text-xs text-muted">
-                    <Lock className="h-3 w-3" /> /gallery/{g.slug}
+                    {g.passwordProtected ? (
+                      <Lock className="h-3 w-3" />
+                    ) : (
+                      <Globe className="h-3 w-3 text-emerald-600" />
+                    )}
+                    /gallery/{g.slug}
+                    {!g.passwordProtected && <span className="text-emerald-700">· Public</span>}
                   </p>
                   <div className="mt-auto flex items-center justify-between pt-3">
                     <span className="text-xs text-muted">Created {formatDateShort(g.createdAt)}</span>

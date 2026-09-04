@@ -45,7 +45,7 @@ export function ImagePicker({
               width={96}
               height={96}
               unoptimized
-              className="h-full w-full object-cover"
+              className="h-full w-full object-cover object-top"
             />
           ) : (
             <ImagePlus className="h-6 w-6 text-muted" />
@@ -173,7 +173,7 @@ function ImagePickerModal({
               )}
               title={item.filename}
             >
-              <Image src={item.url} alt={item.filename} fill sizes="150px" unoptimized className="object-cover" />
+              <Image src={item.url} alt={item.filename} fill sizes="150px" unoptimized className="object-cover object-top" />
               <span className="absolute inset-0 hidden items-center justify-center bg-black/40 group-hover:flex">
                 <Check className="h-6 w-6 text-white" />
               </span>
@@ -195,7 +195,7 @@ export function ImageThumb({ mediaId, alt, className }: { mediaId?: string; alt:
   }
   return (
     <div className={cn("relative overflow-hidden", className)}>
-      <Image src={`/api/media/${mediaId}`} alt={alt} fill sizes="200px" unoptimized className="object-cover" />
+      <Image src={`/api/media/${mediaId}`} alt={alt} fill sizes="200px" unoptimized className="object-cover object-top" />
     </div>
   );
 }

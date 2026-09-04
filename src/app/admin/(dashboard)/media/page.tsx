@@ -124,7 +124,7 @@ export default function MediaLibraryPage() {
             {media.map((item) => (
               <div key={item.id} className="group relative overflow-hidden rounded-lg border border-border">
                 <div className="relative aspect-square bg-secondary/40">
-                  <Image src={item.url} alt={item.filename} fill sizes="200px" className="object-cover" />
+                  <Image src={item.url} alt={item.filename} fill sizes="200px" className="object-cover object-top" />
                 </div>
                 <div className="p-2">
                   <p className="truncate text-xs font-medium text-foreground" title={item.filename}>

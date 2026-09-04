@@ -13,10 +13,12 @@ import { verifyAdminRequest } from "@/lib/admin-guard";
  *
  * Public folders (logo/favicon/hero/services/og/general) are served openly —
  * they are meant to appear on the public site. Media that belongs to a
- * client gallery is only served if the request carries a valid, unexpired
- * session cookie scoped to that exact gallery, or a valid admin session.
- * This is what stops someone from guessing a media id in the URL and pulling
- * a private client's photos directly.
+ * gallery marked password-protected is only served if the request carries a
+ * valid, unexpired session cookie scoped to that exact gallery, or a valid
+ * admin session — this is what stops someone from guessing a media id in the
+ * URL and pulling a private client's photos directly. Media in a gallery the
+ * admin has left public (passwordProtected: false) is served openly, same as
+ * any other public-site image.
  */
 export async function GET(req: NextRequest, { params }: { params: Promise<{ id: string }> }) {
   const { id } = await params;
@@ -31,6 +33,8 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       return NextResponse.json({ error: "Not found." }, { status: 404 });
     }
 
+    let isPrivateGalleryPhoto = false;
+
     if (media.folder === "gallery") {
       const isAdmin = await verifyAdminRequest(req);
       if (!isAdmin) {
@@ -42,10 +46,13 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
         if (!gallery || !gallery.active) {
           return NextResponse.json({ error: "Not found." }, { status: 404 });
         }
-        const cookie = req.cookies.get(galleryCookieName(String(gallery._id)))?.value;
-        const session = cookie ? await verifyGallerySessionToken(cookie) : null;
-        if (!session || session.galleryId !== String(gallery._id)) {
-          return NextResponse.json({ error: "Unauthorized." }, { status: 403 });
+        if (gallery.passwordProtected) {
+          isPrivateGalleryPhoto = true;
+          const cookie = req.cookies.get(galleryCookieName(String(gallery._id)))?.value;
+          const session = cookie ? await verifyGallerySessionToken(cookie) : null;
+          if (!session || session.galleryId !== String(gallery._id)) {
+            return NextResponse.json({ error: "Unauthorized." }, { status: 403 });
+          }
         }
       }
     }
@@ -56,8 +63,7 @@ export async function GET(req: NextRequest, { params }: { params: Promise<{ id: 
       headers: {
         "Content-Type": media.contentType,
         "Content-Length": String(media.size),
-        "Cache-Control":
-          media.folder === "gallery" ? "private, no-store" : "public, max-age=86400, immutable",
+        "Cache-Control": isPrivateGalleryPhoto ? "private, no-store" : "public, max-age=86400, immutable",
       },
     });
   } catch (err) {

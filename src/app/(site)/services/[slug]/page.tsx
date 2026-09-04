@@ -35,7 +35,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
         <div className="grid items-center gap-10 lg:grid-cols-2">
           <div className="relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary/40">
             {imageUrl ? (
-              <Image src={imageUrl} alt={service.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+              <Image src={imageUrl} alt={service.title} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-top" />
             ) : (
               <div className="flex h-full w-full items-center justify-center">
                 <Camera className="h-14 w-14 text-primary/30" />
@@ -75,7 +75,7 @@ export default async function ServiceDetailPage({ params }: { params: Promise<{ 
           <div className="grid grid-cols-2 gap-3 sm:grid-cols-3">
             {galleryUrls.map((url, i) => (
               <div key={i} className="relative aspect-square overflow-hidden rounded-xl">
-                <Image src={url} alt={`${service.title} example ${i + 1}`} fill sizes="30vw" className="object-cover" />
+                <Image src={url} alt={`${service.title} example ${i + 1}`} fill sizes="30vw" className="object-cover object-top" />
               </div>
             ))}
           </div>

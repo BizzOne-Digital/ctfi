@@ -19,6 +19,7 @@ export interface AdminGallery {
   clientName: string;
   clientEmail?: string;
   description?: string;
+  passwordProtected: boolean;
   coverImageMediaId?: string;
   expirationDate?: string | null;
   active: boolean;
@@ -47,6 +48,7 @@ export function GalleryForm({ gallery, onSaved }: { gallery?: AdminGallery; onSa
           clientName: gallery.clientName,
           clientEmail: gallery.clientEmail ?? "",
           description: gallery.description ?? "",
+          passwordProtected: gallery.passwordProtected,
           password: "",
           coverImageMediaId: gallery.coverImageMediaId ?? "",
           expirationDate: gallery.expirationDate ? gallery.expirationDate.slice(0, 10) : "",
@@ -60,6 +62,7 @@ export function GalleryForm({ gallery, onSaved }: { gallery?: AdminGallery; onSa
           clientName: "",
           clientEmail: "",
           description: "",
+          passwordProtected: true,
           password: "",
           coverImageMediaId: "",
           expirationDate: "",
@@ -70,6 +73,7 @@ export function GalleryForm({ gallery, onSaved }: { gallery?: AdminGallery; onSa
   });
 
   const nameValue = watch("name");
+  const passwordProtected = watch("passwordProtected");
 
   React.useEffect(() => {
     if (!slugTouched && nameValue) {
@@ -109,7 +113,7 @@ export function GalleryForm({ gallery, onSaved }: { gallery?: AdminGallery; onSa
         </FormRow>
         <FormRow>
           <Label htmlFor="slug" required>
-            Access Code (used to log in)
+            URL Slug {passwordProtected ? "(also the login access code)" : "(/gallery/…)"}
           </Label>
           <Input
             id="slug"
@@ -144,12 +148,26 @@ export function GalleryForm({ gallery, onSaved }: { gallery?: AdminGallery; onSa
       </FormRow>
 
       <FormRow>
-        <Label htmlFor="password" required={!gallery}>
-          {gallery ? "New Password (leave blank to keep current)" : "Password"}
-        </Label>
-        <Input id="password" type="text" {...register("password")} aria-invalid={!!errors.password} />
-        <FieldError message={errors.password?.message} />
+        <label className="flex items-center gap-2 text-sm font-medium text-foreground">
+          <input type="checkbox" className="h-4 w-4 rounded border-border" {...register("passwordProtected")} />
+          Password Protected
+        </label>
+        <p className="mt-1 text-xs text-muted">
+          {passwordProtected
+            ? "Only people with the password can view this gallery."
+            : "Anyone with the link can view this gallery — no login required. Use this for portfolio or showcase galleries."}
+        </p>
       </FormRow>
+
+      {passwordProtected && (
+        <FormRow>
+          <Label htmlFor="password" required={!gallery}>
+            {gallery ? "New Password (leave blank to keep current)" : "Password"}
+          </Label>
+          <Input id="password" type="text" {...register("password")} aria-invalid={!!errors.password} />
+          <FieldError message={errors.password?.message} />
+        </FormRow>
+      )}
 
       <FormRow>
         <Controller

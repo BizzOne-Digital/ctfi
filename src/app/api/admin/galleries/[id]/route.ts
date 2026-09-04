@@ -76,13 +76,30 @@ export async function PUT(req: NextRequest, { params }: { params: Promise<{ id: 
       );
     }
 
+    const isProtected = parsed.data.passwordProtected !== false;
     const { password, ...rest } = parsed.data;
     const update: Record<string, unknown> = {
       ...rest,
+      passwordProtected: isProtected,
       expirationDate: parsed.data.expirationDate ? new Date(parsed.data.expirationDate) : null,
     };
-    if (password) {
-      update.passwordHash = await bcrypt.hash(password, 12);
+
+    if (isProtected) {
+      if (password) {
+        update.passwordHash = await bcrypt.hash(password, 12);
+      } else {
+        const current = await ClientGalleryModel.findById(id).select("passwordHash").lean();
+        if (!current?.passwordHash) {
+          return NextResponse.json(
+            { error: "Please set a password to make this gallery password-protected." },
+            { status: 400 }
+          );
+        }
+      }
+    } else {
+      // Making a gallery public — clear any stored password hash so there is
+      // nothing sensitive left on a gallery anyone with the link can open.
+      update.passwordHash = "";
     }
 
     const gallery = await ClientGalleryModel.findByIdAndUpdate(id, update, {

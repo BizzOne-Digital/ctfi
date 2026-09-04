@@ -29,7 +29,7 @@ export function Hero({
             fill
             priority
             sizes="100vw"
-            className="image-reveal object-cover"
+            className="image-reveal object-cover object-top"
           />
         ) : (
           <ApertureHeroArt className="h-full w-full" />

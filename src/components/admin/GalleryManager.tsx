@@ -270,7 +270,7 @@ export function GalleryManager({
                       fill
                       sizes="200px"
                       unoptimized
-                      className="object-cover"
+                      className="object-cover object-top"
                     />
                   </div>
                   {img.isCover && (

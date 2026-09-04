@@ -35,7 +35,7 @@ export function GalleryPreviewGrid({ items }: { items: GalleryPreviewItem[] }) {
             alt={item.title || "Photography by Country Tyme Foto Imaging"}
             fill
             sizes="(min-width: 1024px) 25vw, 45vw"
-            className="object-cover transition-transform duration-500 group-hover:scale-105"
+            className="object-cover object-top transition-transform duration-500 group-hover:scale-105"
           />
           {item.title && (
             <div className="absolute inset-x-0 bottom-0 bg-gradient-to-t from-black/60 to-transparent p-3 opacity-0 transition-opacity group-hover:opacity-100">

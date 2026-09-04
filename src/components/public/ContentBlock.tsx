@@ -33,7 +33,7 @@ export function ContentBlock({
       >
         {hasImage && (
           <div className="fade-up relative aspect-[4/3] overflow-hidden rounded-2xl bg-secondary/40">
-            <Image src={imageUrl} alt={heading || ""} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover" />
+            <Image src={imageUrl} alt={heading || ""} fill sizes="(min-width: 1024px) 50vw, 100vw" className="object-cover object-top" />
           </div>
         )}
         {!hasImage && (

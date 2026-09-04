@@ -38,8 +38,12 @@ export async function POST(req: NextRequest) {
     );
   }
 
-  if (!parsed.data.password) {
-    return NextResponse.json({ error: "A password is required when creating a gallery." }, { status: 400 });
+  const isProtected = parsed.data.passwordProtected !== false;
+  if (isProtected && !parsed.data.password) {
+    return NextResponse.json(
+      { error: "A password is required for a password-protected gallery." },
+      { status: 400 }
+    );
   }
 
   try {
@@ -53,12 +57,13 @@ export async function POST(req: NextRequest) {
       );
     }
 
-    const passwordHash = await bcrypt.hash(parsed.data.password, 12);
+    const passwordHash = isProtected && parsed.data.password ? await bcrypt.hash(parsed.data.password, 12) : "";
     const { password: _password, ...rest } = parsed.data;
     void _password;
 
     const gallery = await ClientGalleryModel.create({
       ...rest,
+      passwordProtected: isProtected,
       passwordHash,
       expirationDate: parsed.data.expirationDate ? new Date(parsed.data.expirationDate) : null,
     });

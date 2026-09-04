@@ -77,7 +77,7 @@ export function ClientGalleryView({
                 fill
                 sizes="(min-width: 1024px) 24vw, 45vw"
                 unoptimized
-                className="object-cover transition-transform duration-300 group-hover:scale-105"
+                className="object-cover object-top transition-transform duration-300 group-hover:scale-105"
               />
             </button>
           ))}

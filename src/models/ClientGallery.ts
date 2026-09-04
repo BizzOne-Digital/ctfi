@@ -6,7 +6,8 @@ export interface IClientGallery extends Document {
   clientName: string;
   clientEmail?: string;
   description?: string;
-  passwordHash: string;
+  passwordProtected: boolean;
+  passwordHash?: string;
   coverImageMediaId?: string;
   expirationDate?: Date | null;
   active: boolean;
@@ -24,7 +25,13 @@ const ClientGallerySchema = new Schema<IClientGallery>(
     clientName: { type: String, required: true, trim: true },
     clientEmail: { type: String, default: "" },
     description: { type: String, default: "" },
-    passwordHash: { type: String, required: true },
+    // Password protection is opt-in per gallery. When passwordProtected is
+    // false, anyone with the link can view the gallery without logging in —
+    // this is what makes a portfolio/showcase gallery public. Existing
+    // galleries default to true so previously-created client galleries stay
+    // exactly as private as they were before this field existed.
+    passwordProtected: { type: Boolean, default: true },
+    passwordHash: { type: String, default: "" },
     coverImageMediaId: { type: String, default: "" },
     expirationDate: { type: Date, default: null },
     active: { type: Boolean, default: true, index: true },

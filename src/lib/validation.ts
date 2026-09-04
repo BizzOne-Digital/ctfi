@@ -62,6 +62,7 @@ export const gallerySchema = z.object({
   clientName: z.string().trim().min(1).max(140),
   clientEmail: z.string().trim().email().optional().or(z.literal("")),
   description: z.string().trim().max(1000).optional().or(z.literal("")),
+  passwordProtected: z.boolean().optional().default(true),
   password: z.string().min(4, "Password must be at least 4 characters.").optional().or(z.literal("")),
   coverImageMediaId: z.string().trim().optional().or(z.literal("")),
   expirationDate: z.string().trim().optional().or(z.literal("")),
